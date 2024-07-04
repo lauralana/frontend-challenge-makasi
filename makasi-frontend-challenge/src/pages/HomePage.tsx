@@ -1,51 +1,63 @@
-import React, { useState } from 'react';
-import { Container, Autocomplete, Button, Center, Group, Text } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Autocomplete, Button, Flex, Text, } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState('');
+  const [value, setValue] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleNavigate = () => {
     if (value) {
-      setError('');
-      navigate('/profile', { state: { selectedOption: value } });
+      setError("");
+      navigate("/profile", { state: { selectedOption: value } });
     } else {
-      setError('Por favor, selecione uma opção');
+      setError("Por favor, selecione uma opção");
     }
   };
 
   const handleChange = (val: string) => {
     setValue(val);
     if (error) {
-      setError('');
+      setError("");
     }
   };
 
   return (
-    <Center style={{ height: '100vh', flexDirection: 'column' }}>
-      <h1>Home Page</h1>
-      <Container>
-      <Group style={{ marginTop: '1rem' }}>
-          <Autocomplete
-            placeholder="Digite algo..."
-            data={["React", "Vue", "Angular", "Svelte", "React Native"]}
-            value={value}
-            onChange={handleChange}
-            withScrollArea={false}
-            styles={{ dropdown: { maxHeight: 200, overflowY: 'auto' } }}
-            mt="md"
-          />
-          <Button onClick={handleNavigate}>Search</Button>
-        </Group>
-        {error && (
-          <Text style={{ marginTop: '1rem', color: "red" }}>
-            {error}
-          </Text>
-        )}
-      </Container>
-    </Center>
+    
+    <Flex
+      direction="column"
+      align="center"
+      w="100vw"
+      h="100vh"
+      justify="center"
+      display="flex"
+    >
+      <h1>Search Devs</h1>
+      <Flex display="flex">
+      <Autocomplete
+        placeholder="Digite algo..."
+        data={["React", "Vue", "Angular", "Svelte", "React Native"]}
+        value={value}
+        onChange={handleChange}
+        withScrollArea={false}
+        maxDropdownHeight={200}
+        styles={{
+          dropdown: {
+            maxHeight: 200,
+            position: 'absolute',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            width: 'fit-content'
+          },
+        }}
+      />
+      <Button onClick={handleNavigate}>Search</Button>
+    </Flex>
+       {error && (
+        <Text style={{ marginTop: "1rem", color: "red" }}>{error}</Text>
+      )}
+    </Flex>
   );
 };
 
