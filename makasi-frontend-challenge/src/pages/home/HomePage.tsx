@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Autocomplete, Button, Flex } from "@mantine/core";
 import classes from "./HomePage.module.css";
 import { getUsers } from "../../api/apiService";
+import { getMockAllUsers } from "../../api/mock-all-users";
 
 interface User {
   login: string;
@@ -23,7 +24,8 @@ const HomePage: React.FC = () => {
   const handleChange = async (val: string) => {
     setValue(val);
     if (val) {
-      const users = await getUsers(val);
+     // const users = await getUsers(val);
+     const users = await getMockAllUsers(val);
       setOptions(users);
     } else {
       setOptions([]);

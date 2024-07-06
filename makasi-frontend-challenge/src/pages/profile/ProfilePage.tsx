@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Flex } from "@mantine/core";
 import classes from "./ProfilePage.module.css";
-import { getUserDetails, getUserRepos } from "../../api/apiService";
+//import { getUserDetails, getUserRepos } from "../../api/apiService";
+import { getMockUser } from "../../api/mock-user";
+import { getMockRepositories } from "../../api/mock-user-repo";
 
 interface User {
   login: string;
@@ -24,9 +26,11 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userDetails = await getUserDetails(username);
+        //const userDetails = await getUserDetails(username);
+        const userDetails = await getMockUser(username);
         setUser(userDetails);
-        const userRepos = await getUserRepos(username);
+        //const userRepos = await getUserRepos(username);
+        const userRepos = await getMockRepositories(username);
         setRepos(userRepos);
       } catch (error) {
         console.error("Error fetching user details:", error);
