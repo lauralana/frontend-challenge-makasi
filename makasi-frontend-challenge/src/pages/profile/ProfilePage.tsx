@@ -1,4 +1,3 @@
-// ProfilePage.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Flex } from "@mantine/core";
@@ -62,7 +61,6 @@ const ProfilePage: React.FC = () => {
           (a: { stargazers_count: number }, b: { stargazers_count: number }) =>
             b.stargazers_count - a.stargazers_count
         );
-        console.log("🚀 ~ fetchData ~ orderRepos:", orderRepos);
         setRepos(orderRepos);
       } catch (error) {
         console.error("Error fetching user details:", error);
