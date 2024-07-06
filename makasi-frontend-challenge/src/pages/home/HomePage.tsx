@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Autocomplete, Button, Flex } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import { Autocomplete, Button, Flex } from "@mantine/core";
 import classes from "./HomePage.module.css";
 import { getUsers } from "../../api/apiService";
 

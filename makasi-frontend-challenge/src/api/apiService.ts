@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
-const API_URL = process.env.API_URL;
-const GITHUB_TOKEN =  process.env.GITHUB_TOKEN
+// const API_URL = process.env.API_URL;
+// const GITHUB_TOKEN =  process.env.GITHUB_TOKEN
+import { API_URL } from "../keys";
+import { GITHUB_TOKEN } from "../keys";
 
 async function instance(endpoint: string, params?: unknown, method: string = 'GET'): Promise<any> {
   const config: AxiosRequestConfig = {

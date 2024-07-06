@@ -1,6 +1,8 @@
 // ProfilePage.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Flex } from "@mantine/core";
+import classes from "./ProfilePage.module.css";
 import { getUserDetails, getUserRepos } from "../../api/apiService";
 
 interface User {
@@ -39,7 +41,7 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div>
+    <Flex className={classes.profile}>
       <h2>{user.login}</h2>
       <img src={user.avatar_url} alt={`${user.login} avatar`} />
       <h3>Repositories:</h3>
@@ -52,7 +54,7 @@ const ProfilePage: React.FC = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </Flex>
   );
 };
 
