@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
   const handleChange = async (val: string) => {
     setValue(val);
     if (val) {
-     // const users = await getUsers(val);
+      // const users = await getUsers(val);
       const users = await getMockAllUsers(val);
       setOptions(users);
     } else {
@@ -62,7 +62,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Flex className={classes.home}>
-      <text>Search Devs</text>
+      <h1>Search Devs</h1>
       <Flex display="flex">
         <Autocomplete
           placeholder="Type the username here..."
