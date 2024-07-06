@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Autocomplete, Button, Flex } from "@mantine/core";
+import {
+  Autocomplete,
+  AutocompleteProps,
+  Button,
+  Flex,
+  Group,
+  Avatar,
+  Text,
+} from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import classes from "./HomePage.module.css";
 import { getUsers } from "../../api/apiService";
 import { getMockAllUsers } from "../../api/mock-all-users";
@@ -11,6 +20,8 @@ interface User {
 }
 
 const HomePage: React.FC = () => {
+  const cellphone = useMediaQuery("(max-width: 375px)");
+  const tablet = useMediaQuery("(max-width: 820px)");
   const navigate = useNavigate();
   const [value, setValue] = useState<string>("");
   const [options, setOptions] = useState<User[]>([]);
@@ -25,7 +36,7 @@ const HomePage: React.FC = () => {
     setValue(val);
     if (val) {
      // const users = await getUsers(val);
-     const users = await getMockAllUsers(val);
+      const users = await getMockAllUsers(val);
       setOptions(users);
     } else {
       setOptions([]);
@@ -34,31 +45,59 @@ const HomePage: React.FC = () => {
 
   const mappedOptions = options.map((user) => ({
     value: user.login,
+    avatar_url: user.avatar_url,
   }));
+  console.log(mappedOptions);
+
+  const renderAutocompleteOption: AutocompleteProps["renderOption"] = ({
+    option,
+  }) => (
+    <Group gap="sm">
+      <Avatar src={option.avatar_url} size={36} radius="xl" />
+      <div>
+        <Text size="sm">{option.value}</Text>
+      </div>
+    </Group>
+  );
 
   return (
     <Flex className={classes.home}>
-      <h1>Search Devs</h1>
+      <text>Search Devs</text>
       <Flex display="flex">
         <Autocomplete
           placeholder="Type the username here..."
           data={mappedOptions}
+          renderOption={renderAutocompleteOption}
           value={value}
           onChange={handleChange}
-          withScrollArea={false}
-          maxDropdownHeight={400}
+          limit={10}
           styles={{
             dropdown: {
-              maxHeight: 200,
               position: "absolute",
               marginLeft: "auto",
               marginRight: "auto",
               width: "fit-content",
             },
+            input: {
+              width: cellphone ? "50vw" : tablet ? "40vw" : "20vw",
+              height: cellphone ? "5vh" : "4vh",
+              marginRight: cellphone ? "5px" : "8px",
+              fontSize: cellphone ? "10px" : "16px",
+              fontStyle: "italic",
+            },
           }}
-          className={classes.autocomplete}
         />
-        <Button onClick={() => handleNavigate(value)} className={classes.button}>
+        <Button
+          onClick={() => handleNavigate(value)}
+          color="gray"
+          w={cellphone ? "18vw" : tablet ? "12vw" : "6vw"}
+          h={cellphone ? "5vh" : "4vh"}
+          style={{
+            fontSize: cellphone ? "8px" : "16px",
+            fontStyle: "italic",
+            backgroundColor: "gray",
+          }}
+        >
           Search
         </Button>
       </Flex>
