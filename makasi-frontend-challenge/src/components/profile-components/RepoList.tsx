@@ -3,7 +3,6 @@ import { Flex, Anchor, Loader } from "@mantine/core";
 import { IconStar } from "@tabler/icons-react";
 import { useMediaQuery } from "@mantine/hooks";
 import classes from "./ProfileComponents.module.css";
-import { getMockRepositories } from "../../api/mock-user-repo";
 import { getUserRepos } from "../../api/apiService";
 
 interface Repo {
@@ -23,15 +22,13 @@ const RepoList: React.FC<RepoListProps> = ({ username }) => {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loadingRepos, setLoadingRepos] = useState(false);
   const cellphone = useMediaQuery("(max-width: 410px)");
-  const tablet = useMediaQuery("(max-width: 820px)");
 
   const fetchRepos = async () => {
     setLoadingRepos(true);
     try {
       const userRepos = await getUserRepos(username);
-      //const userRepos = await getMockRepositories(username);
       const orderRepos = userRepos.sort(
-        (a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)
+        (a: { stargazers_count: number; }, b: { stargazers_count: number; }) => (b.stargazers_count || 0) - (a.stargazers_count || 0)
       );
       setRepos(orderRepos);
     } catch (error) {

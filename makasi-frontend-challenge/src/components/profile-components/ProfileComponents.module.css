@@ -32,7 +32,6 @@
 
 .col1 h2 {
   color: whitesmoke;
-  font-style: italic;
 }
 
 .iconTextContainer {
@@ -68,8 +67,6 @@
 
 .iconTextContainerCol2 {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 5px;
   padding-top: 8px;
   color: gray;
@@ -89,7 +86,6 @@
 
 text {
   font-size: medium;
-  /* color: whitesmoke; */
 }
 
 /* tablet */
@@ -99,8 +95,6 @@ text {
     justify-content: flex-start;
     width: 100vw;
     height: 100vh;
-    margin-top: 5px;
-    margin-left: 5px;
     overflow: hidden;
   }
 
@@ -160,7 +154,6 @@ text {
 
   .col1 h2 {
     color: whitesmoke;
-    font-style: italic;
     font-size: small;
   }
   .iconTextContainer {

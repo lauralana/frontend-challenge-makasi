@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader, Flex, Button } from "@mantine/core";
+import { Loader, Flex } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import SideBar from "../../components/profile-components/SideBar";
 import RepoList from "../../components/profile-components/RepoList";

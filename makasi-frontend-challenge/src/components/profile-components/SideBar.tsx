@@ -13,7 +13,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
 import classes from "./ProfileComponents.module.css";
-import { getMockUser } from "../../api/mock-user";
 import { getUserDetails } from "../../api/apiService";
 
 interface User {
@@ -45,8 +44,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
   const fetchData = async () => {
     setLoadingUser(true);
     try {
-      // const userDetails = await getUserDetails(username);
-      const userDetails = await getMockUser(username);
+      const userDetails = await getUserDetails(username);
       setUser(userDetails);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -64,7 +62,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
       <Flex
         justify="center"
         align="center"
-        style={{ height: "100vh", width: "50vw" }}
+        style={{ height: "100vh", width: '100vw'}}
       >
         <Loader />
       </Flex>
@@ -151,7 +149,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
         onClick={() => navigate(-1)}
         color="gray"
         w={cellphone ? "18vw" : tablet ? "12vw" : "10vw"}
-        h={cellphone ? "5vh" : "4vh"}
+        h={cellphone ? "2vh" : "4vh"}
         style={{
           fontSize: cellphone ? "8px" : "16px",
           fontStyle: "italic",
