@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Anchor, Loader } from "@mantine/core";
 import { IconStar } from "@tabler/icons-react";
+import { useMediaQuery } from "@mantine/hooks";
 import classes from "./ProfileComponents.module.css";
 import { getMockRepositories } from "../../api/mock-user-repo";
 import { getUserRepos } from "../../api/apiService";
@@ -21,12 +22,14 @@ interface RepoListProps {
 const RepoList: React.FC<RepoListProps> = ({ username }) => {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loadingRepos, setLoadingRepos] = useState(false);
+  const cellphone = useMediaQuery("(max-width: 410px)");
+  const tablet = useMediaQuery("(max-width: 820px)");
 
   const fetchRepos = async () => {
     setLoadingRepos(true);
     try {
-      //const userRepos = await  getUserRepos(username);
-      const userRepos = await getMockRepositories(username);
+      const userRepos = await getUserRepos(username);
+      //const userRepos = await getMockRepositories(username);
       const orderRepos = userRepos.sort(
         (a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)
       );
@@ -44,7 +47,11 @@ const RepoList: React.FC<RepoListProps> = ({ username }) => {
 
   if (loadingRepos || !repos) {
     return (
-      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+      <Flex
+        justify="center"
+        align="center"
+        style={{ height: "100vh", width: "50vw" }}
+      >
         <Loader />
       </Flex>
     );
@@ -60,6 +67,10 @@ const RepoList: React.FC<RepoListProps> = ({ username }) => {
             underline="never"
             c="blue"
             size="lg"
+            style={{
+              fontSize: cellphone ? "12px" : "16px",
+              flexWrap: "wrap",
+            }}
           >
             {repo.name}
           </Anchor>

@@ -23,7 +23,7 @@ interface User {
   bio: string;
   followers: number;
   following: number;
-  star: number;
+  starredUser: number;
   location: string;
   company: string;
   blog: string;
@@ -36,7 +36,7 @@ interface SideBarProps {
 }
 
 const SideBar: React.FC<SideBarProps> = ({ username }) => {
-  const cellphone = useMediaQuery("(max-width: 375px)");
+  const cellphone = useMediaQuery("(max-width: 410px)");
   const tablet = useMediaQuery("(max-width: 820px)");
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
@@ -45,7 +45,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
   const fetchData = async () => {
     setLoadingUser(true);
     try {
-     // const userDetails = await getUserDetails(username);
+      // const userDetails = await getUserDetails(username);
       const userDetails = await getMockUser(username);
       setUser(userDetails);
     } catch (error) {
@@ -61,7 +61,11 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
 
   if (loadingUser || !user) {
     return (
-      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+      <Flex
+        justify="center"
+        align="center"
+        style={{ height: "100vh", width: "50vw" }}
+      >
         <Loader />
       </Flex>
     );
@@ -86,40 +90,44 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
           <IconHeart stroke={2} color="white" width={16} />
           <text>{user.following} following</text>
         </div>
-        {user.star ? (
+        {user.starredUser ? (
           <div className={classes.iconTextContainer}>
             <IconStar stroke={2} color="white" width={16} />
-            <text>stars</text>
+            <text>{user.starredUser}stars</text>
           </div>
         ) : null}
       </Flex>
       <Flex className={classes.col1b}>
         {user.company ? (
           <div className={classes.iconTextContainerCol1b}>
-            <IconBuilding stroke={2} color="white" width={32} />
+            <IconBuilding stroke={2} color="white" width={16} />
             <text>{user.company}</text>
           </div>
         ) : null}
         {user.location ? (
           <div className={classes.iconTextContainerCol1b}>
-            <IconMapPin stroke={2} color="white" width={32} />
+            <IconMapPin stroke={2} color="white" width={16} />
             <text>{user.location}</text>
           </div>
         ) : null}
         {user.email ? (
           <div className={classes.iconTextContainerCol1b}>
-            <IconMail stroke={2} color="white" width={32} />
+            <IconMail stroke={2} color="white" width={16} />
             <text>{user.email}</text>
           </div>
         ) : null}
         {user.blog ? (
           <div className={classes.iconTextContainerCol1b}>
-            <IconLink stroke={2} color="white" width={32} />
+            <IconLink stroke={2} color="white" width={16} />
             <Anchor
               href={user.blog}
               target="_blank"
               underline="hover"
               c="white"
+              style={{
+                fontSize: cellphone ? "10px" : "16px",
+                flexWrap: "wrap",
+              }}
             >
               {user.blog}
             </Anchor>
@@ -127,7 +135,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
         ) : null}
         {user.twitter_username ? (
           <div className={classes.iconTextContainerCol1b}>
-            <IconBrandTwitter stroke={2} color="white" width={32} />
+            <IconBrandTwitter stroke={2} color="white" width={16} />
             <Anchor
               href={user.twitter_username}
               target="_blank"
@@ -148,7 +156,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
           fontSize: cellphone ? "8px" : "16px",
           fontStyle: "italic",
           backgroundColor: "gray",
-          marginTop: "20vh",
+          marginTop: "16px",
         }}
       >
         Back

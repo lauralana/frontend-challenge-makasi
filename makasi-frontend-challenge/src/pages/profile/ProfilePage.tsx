@@ -3,7 +3,7 @@ import { Loader, Flex, Button } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import SideBar from "../../components/profile-components/SideBar";
 import RepoList from "../../components/profile-components/RepoList";
-import { useDisclosure } from "@mantine/hooks";
+import classes from "../../components/profile-components/ProfileComponents.module.css";
 
 const ProfilePage: React.FC = () => {
   const { username } = useParams<{ username: string }>();
@@ -17,7 +17,7 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <Flex>
+    <Flex className={classes.profile}>
       <SideBar username={username} />
       <RepoList username={username} />
     </Flex>
