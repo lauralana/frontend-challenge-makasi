@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Button, Flex } from "@mantine/core";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Flex, Loader, Anchor } from "@mantine/core";
 import classes from "./ProfilePage.module.css";
 import { getUserDetails, getUserRepos } from "../../api/apiService";
 import {
@@ -44,34 +44,51 @@ interface Repo {
 const ProfilePage: React.FC = () => {
   const cellphone = useMediaQuery("(max-width: 375px)");
   const tablet = useMediaQuery("(max-width: 820px)");
+  const navigate = useNavigate();
 
   const { username } = useParams<{ username: string }>();
   const [user, setUser] = useState<User | null>(null);
   const [repos, setRepos] = useState<Repo[]>([]);
+  const [loadingUser, setLoadingUser] = useState(false);
+
+  const fetchData = async () => {
+    setLoadingUser(true);
+    try {
+      //const userDetails = await getUserDetails(username);
+      const userDetails = await getMockUser(username);
+      setUser(userDetails);
+      //const userRepos = await getUserRepos(username);
+      const userRepos = await getMockRepositories(username);
+      const orderRepos = userRepos.sort(
+        (a: { stargazers_count: number }, b: { stargazers_count: number }) =>
+          b.stargazers_count - a.stargazers_count
+      );
+      setRepos(orderRepos);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    } finally {
+      setLoadingUser(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userDetails = await getUserDetails(username);
-        //const userDetails = await getMockUser(username);
-        setUser(userDetails);
-        const userRepos = await getUserRepos(username);
-        //const userRepos = await getMockRepositories(username);
-        const orderRepos = userRepos.sort(
-          (a: { stargazers_count: number }, b: { stargazers_count: number }) =>
-            b.stargazers_count - a.stargazers_count
-        );
-        setRepos(orderRepos);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
-
     fetchData();
   }, [username]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+        <Loader />
+      </Flex>
+    );
+  }
+
+  if (loadingUser) {
+    return (
+      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+        <Loader />
+      </Flex>
+    );
   }
 
   return (
@@ -82,7 +99,7 @@ const ProfilePage: React.FC = () => {
           alt={`${user.login} avatar`}
           className={classes.image}
         />
-        <text>{user.name}</text>
+        <h2>{user.name}</h2>
         <text>@{user.login}</text>
         <text>{user.bio}</text>
         <Flex align="center" gap="md">
@@ -131,7 +148,14 @@ const ProfilePage: React.FC = () => {
           {user.blog ? (
             <div className={classes.iconTextContainerCol1b}>
               <IconLink stroke={2} color="white" width={32} />
-              <text>{user.blog}</text>
+              <Anchor
+                href={user.blog}
+                target="_blank"
+                underline="hover"
+                c="white"
+              >
+                {user.blog}
+              </Anchor>
             </div>
           ) : (
             ""
@@ -139,14 +163,16 @@ const ProfilePage: React.FC = () => {
           {user.twitter_username ? (
             <div className={classes.iconTextContainerCol1b}>
               <IconBrandTwitter stroke={2} color="white" width={32} />
-              <text> {user.twitter_username}</text>
+              <Anchor href={user.twitter_username} target="_blank" underline="hover" c="white">
+                {user.twitter_username}
+              </Anchor>
             </div>
           ) : (
             ""
           )}
         </Flex>
         <Button
-          //  onClick={() => handleNavigate(value)}
+          onClick={() => navigate(-1)}
           color="gray"
           w={cellphone ? "18vw" : tablet ? "12vw" : "10vw"}
           h={cellphone ? "5vh" : "4vh"}
@@ -154,6 +180,7 @@ const ProfilePage: React.FC = () => {
             fontSize: cellphone ? "8px" : "16px",
             fontStyle: "italic",
             backgroundColor: "gray",
+            marginTop: "20vh",
           }}
         >
           Back
@@ -162,23 +189,28 @@ const ProfilePage: React.FC = () => {
       <Flex className={classes.col2}>
         {repos.map((repo) => (
           <div key={repo.id} className={classes.repoContainer}>
-            <a
+            <Anchor
               href={repo.html_url}
               target="_blank"
-              rel="noopener noreferrer"
-              className={classes.repoName}
+              underline="never"
+              c="blue"
+              size="lg"
             >
               {repo.name}
-            </a>
+            </Anchor>
             <text>{repo.description}</text>
             <Flex align="center" gap="md">
-              <div className={classes.iconTextContainerCol1b}>
-                <IconStar stroke={2} color="gray" width={16}/>
-                <text>{repo.stargazers_count} stars</text>
-              </div>
-              <text>•</text>
-              <text className={classes.iconTextContainerCol1b}>
-                Last updated: {new Date(repo.updated_at).toLocaleDateString()}
+              {repo.stargazers_count >= 0 ? (
+                <div className={classes.iconTextContainerCol2}>
+                  <IconStar stroke={2} color="gray" width={16} />
+                  <text>{repo.stargazers_count} stars</text>
+                </div>
+              ) : (
+                ""
+              )}
+              <text className={classes.iconTextContainerCol2}>•</text>
+              <text className={classes.iconTextContainerCol2}>
+                Updated {new Date(repo.updated_at).toLocaleDateString()}
               </text>
             </Flex>
           </div>
