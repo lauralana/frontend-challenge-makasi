@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
   return (
     <Flex className={classes.home}>
       <h1>Search Devs</h1>
-      <Flex display="flex">
+      <Flex display="flex" justify='center'>
         <Autocomplete
           placeholder="Type the username here..."
           data={mappedOptions}
@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
               width: "fit-content",
             },
             input: {
-              width: cellphone ? "50vw" : tablet ? "40vw" : "20vw",
+              width: cellphone ? "50vw" : tablet ? "40vw" : "30vw",
               height: cellphone ? "5vh" : "4vh",
               marginRight: cellphone ? "5px" : "8px",
               fontSize: cellphone ? "10px" : "16px",
@@ -88,7 +88,7 @@ const HomePage: React.FC = () => {
         <Button
           onClick={() => handleNavigate(value)}
           color="gray"
-          w={cellphone ? "18vw" : tablet ? "12vw" : "6vw"}
+          w={cellphone ? "18vw" : tablet ? "12vw" : "10vw"}
           h={cellphone ? "5vh" : "4vh"}
           style={{
             fontSize: cellphone ? "8px" : "16px",

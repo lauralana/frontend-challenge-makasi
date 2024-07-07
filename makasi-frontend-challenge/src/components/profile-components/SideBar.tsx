@@ -139,6 +139,10 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
               target="_blank"
               underline="hover"
               c="white"
+              style={{
+                fontSize: cellphone ? "10px" : "16px",
+                flexWrap: "wrap",
+              }}
             >
               {user.twitter_username}
             </Anchor>
@@ -149,7 +153,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
         onClick={() => navigate(-1)}
         color="gray"
         w={cellphone ? "18vw" : tablet ? "12vw" : "10vw"}
-        h={cellphone ? "2vh" : "4vh"}
+        h={cellphone ? "3vh" : "4vh"}
         style={{
           fontSize: cellphone ? "8px" : "16px",
           fontStyle: "italic",
