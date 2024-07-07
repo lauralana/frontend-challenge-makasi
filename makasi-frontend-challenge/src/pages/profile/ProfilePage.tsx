@@ -93,6 +93,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <Flex className={classes.profile}>
+      {/* sideBar component */}
       <Flex className={classes.col1}>
         <img
           src={user.avatar_url}
@@ -186,6 +187,7 @@ const ProfilePage: React.FC = () => {
           Back
         </Button>
       </Flex>
+      {/* respList component */}
       <Flex className={classes.col2}>
         {repos.map((repo) => (
           <div key={repo.id} className={classes.repoContainer}>
