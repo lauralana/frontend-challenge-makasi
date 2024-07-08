@@ -6,7 +6,45 @@
 
 2. `npm install`.
 
-#### To run the app on browser
+3. Environment Variables 
+
+<details>
+<summary>
+    <strong>
+      how to set you environment variable !
+    </strong>
+  </summary>
+To run this application, you will need to set up a GitHub token for API requests!
+
+Follow these steps:
+
+<strong>Create a GitHub Token:</strong>
+- Go to GitHub Settings > Developer Settings > Personal access tokens.
+- Give your token a descriptive name.
+(Select the scopes you need. For this application, the default scopes are sufficient.)
+- Click "Generate token" and copy the generated token.
+- Set Up Your .env File:
+
+In the root directory of the project, create a `.env` file.
+
+There is an `env.example` file in the project that you can use as a template. Rename it to .env or copy its contents into your new .env file.
+
+Add your GitHub token to the .env file as follows:
+
+`VITE_GITHUB_TOKEN=your_github_token_here`
+
+This token is necessary for making authenticated requests to the GitHub API. Without this token, the application will not be able to fetch data from GitHub.
+
+<details>
+  <summary>
+    <strong>Why Add a Token to a Public API ?</strong>
+  </summary>
+Although the GitHub API is public, it imposes rate limits on the number of requests you can make in an hour. By using a personal access token, you can increase this limit, allowing for more requests within the same time period. Additionally, an authenticated token ensures more reliable access and reduces the risk of hitting rate limits during development and use. This token also helps to secure your requests, providing a layer of authentication to your API interactions.
+</details>
+
+</details>
+
+### To run the app on browser
 
 ```bash
   npm run dev

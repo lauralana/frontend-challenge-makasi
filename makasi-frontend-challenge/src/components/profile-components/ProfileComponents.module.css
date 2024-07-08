@@ -110,10 +110,19 @@ text {
     position: fixed;
     overflow: auto;
   }
+
   .image {
     width: 150px;
   }
 
+  .iconTextContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+  
   .col2 {
     flex-direction: column;
     justify-content: flex-start;
@@ -142,6 +151,13 @@ text {
 
 /* cellphone */
 @media (max-width: 410px) {
+  .col1 {
+    padding: 10px;
+    width: 45vw;
+    background-color: rgb(68, 85, 111);
+    position: fixed;
+    overflow: auto;
+  }
   .image {
     width: 100px;
   }
@@ -156,6 +172,7 @@ text {
     color: whitesmoke;
     font-size: small;
   }
+
   .iconTextContainer {
     display: flex;
     flex-direction: column;
@@ -167,22 +184,26 @@ text {
   .col1b {
     display: flex;
     flex-direction: column;
-    width: 150px;
     flex-wrap: wrap;
-    padding: 8px;
+    padding: 2px;
   }
 
   .col1b text {
     display: flex;
     width: 120px;
     flex-wrap: wrap;
+    padding: 2px;
   }
   
   .iconTextContainerCol1b {
     display: flex;
     gap: 1px;
-    padding-top: 1px;
+    padding: 2px;
     align-items: center;
+  }
+
+  .col2 {
+    margin-left: 48vw;
   }
 
   .col2 text {

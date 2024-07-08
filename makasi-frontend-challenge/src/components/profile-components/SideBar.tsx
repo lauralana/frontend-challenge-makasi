@@ -28,6 +28,7 @@ interface User {
   blog: string;
   email: string;
   twitter_username: string;
+  starredRepos: Array<{ id: number; name: string; html_url: string }>;
 }
 
 interface SideBarProps {
@@ -88,10 +89,10 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
           <IconHeart stroke={2} color="white" width={16} />
           <text>{user.following} following</text>
         </div>
-        {user.starredUser ? (
+        {user.starredRepos.length > 0 ? (
           <div className={classes.iconTextContainer}>
             <IconStar stroke={2} color="white" width={16} />
-            <text>{user.starredUser}stars</text>
+            <text>{user.starredRepos.length} stars</text>
           </div>
         ) : null}
       </Flex>
