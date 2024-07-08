@@ -88,8 +88,3 @@ Although the GitHub API is public, it imposes rate limits on the number of reque
 
 - @tabler/icons-react was utilized for its extensive collection of high-quality icons, offering flexibility and ease of use in integrating icons across various components.
 
-<strong>@tabler/icons-react</strong>
-
-- @tabler/icons-react was utilized for its extensive collection of high-quality icons, offering flexibility and ease of use in integrating icons across various components.
-
-</details>
