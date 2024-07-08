@@ -4,7 +4,7 @@ import {
   IconUsers,
   IconStar,
   IconHeart,
-  IconBrandTwitter,
+  IconBrandX,
   IconLink,
   IconMail,
   IconMapPin,
@@ -46,6 +46,7 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
     setLoadingUser(true);
     try {
       const userDetails = await getUserDetails(username);
+      console.log("🚀 ~ fetchData ~ userDetails:", userDetails)
       setUser(userDetails);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -119,7 +120,11 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
           <div className={classes.iconTextContainerCol1b}>
             <IconLink stroke={2} color="white" width={16} />
             <Anchor
-              href={user.blog}
+               href={
+                user.blog.startsWith('http://') || user.blog.startsWith('https://')
+                  ? user.blog
+                  : `https://${user.blog}`
+              }
               target="_blank"
               underline="hover"
               c="white"
@@ -134,9 +139,9 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
         ) : null}
         {user.twitter_username ? (
           <div className={classes.iconTextContainerCol1b}>
-            <IconBrandTwitter stroke={2} color="white" width={16} />
+            <IconBrandX stroke={2} color="white" width={16} />
             <Anchor
-              href={user.twitter_username}
+              href={`https://twitter.com/${user.twitter_username}`}
               target="_blank"
               underline="hover"
               c="white"
