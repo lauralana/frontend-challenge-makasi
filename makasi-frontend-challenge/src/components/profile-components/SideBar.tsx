@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Button, Anchor, Loader } from "@mantine/core";
+import { Flex, Button, Anchor, Loader, Text } from "@mantine/core";
 import {
   IconUsers,
   IconStar,
@@ -46,7 +46,6 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
     setLoadingUser(true);
     try {
       const userDetails = await getUserDetails(username);
-      console.log("🚀 ~ fetchData ~ userDetails:", userDetails)
       setUser(userDetails);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -59,14 +58,43 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
     fetchData();
   }, [username]);
 
-  if (loadingUser || !user) {
+  if (loadingUser) {
     return (
       <Flex
         justify="center"
         align="center"
-        style={{ height: "100vh", width: '100vw'}}
+        style={{ height: "100vh", width: "100vw" }}
       >
         <Loader />
+      </Flex>
+    );
+  }
+
+  if (!user) {
+    return (
+      <Flex
+        justify="center"
+        align="center"
+        style={{ height: "100vh", width: "100vw" }}
+        direction="column"
+        gap="20px"
+      >
+        <Loader />
+        <Text> We could not find the user: {username} !</Text>
+        <Button
+          onClick={() => navigate(-1)}
+          color="gray"
+          w={cellphone ? "18vw" : tablet ? "12vw" : "10vw"}
+          h={cellphone ? "3vh" : "4vh"}
+          style={{
+            fontSize: cellphone ? "8px" : "16px",
+            fontStyle: "italic",
+            backgroundColor: "gray",
+            marginTop: "16px",
+          }}
+        >
+          Back
+        </Button>
       </Flex>
     );
   }
@@ -120,8 +148,9 @@ const SideBar: React.FC<SideBarProps> = ({ username }) => {
           <div className={classes.iconTextContainerCol1b}>
             <IconLink stroke={2} color="white" width={16} />
             <Anchor
-               href={
-                user.blog.startsWith('http://') || user.blog.startsWith('https://')
+              href={
+                user.blog.startsWith("http://") ||
+                user.blog.startsWith("https://")
                   ? user.blog
                   : `https://${user.blog}`
               }

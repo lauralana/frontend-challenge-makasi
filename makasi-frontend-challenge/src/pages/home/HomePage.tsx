@@ -45,16 +45,13 @@ const HomePage: React.FC = () => {
     value: user.login,
     avatar_url: user.avatar_url,
   }));
-  console.log(mappedOptions);
 
   const renderAutocompleteOption: AutocompleteProps["renderOption"] = ({
     option,
   }) => (
     <Group gap="sm">
       <Avatar src={option.avatar_url} size={36} radius="xl" />
-      <div>
         <Text size="sm">{option.value}</Text>
-      </div>
     </Group>
   );
 
