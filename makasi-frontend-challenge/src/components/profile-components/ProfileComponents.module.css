@@ -12,7 +12,6 @@
   align-items: center;
   padding: 20px;
   width: 30vw;
-  flex: 0 0 300px;
   height: 100vh;
   background-color: rgb(68, 85, 111);
   overflow-x: hidden;
@@ -32,6 +31,7 @@
 
 .col1 h2 {
   color: whitesmoke;
+  line-height: 0%;
 }
 
 .iconTextContainer {
@@ -104,7 +104,6 @@ text {
     align-items: center;
     padding: 20px;
     width: 40vw;
-    flex: 0 0 300px;
     height: 100vh;
     background-color: rgb(68, 85, 111);
     position: fixed;
@@ -151,15 +150,17 @@ text {
 
 /* cellphone */
 @media (max-width: 410px) {
-  .col1 {
-    padding: 10px;
-    width: 45vw;
+   .col1 {
+    padding: 5px;
+    align-items: flex-start;
+    width: 100vw;
+    height: 30vh;
     background-color: rgb(68, 85, 111);
     position: fixed;
     overflow: auto;
   }
   .image {
-    width: 100px;
+    width: 80px;
   }
 
   .col1 text {
@@ -171,39 +172,46 @@ text {
   .col1 h2 {
     color: whitesmoke;
     font-size: small;
+   
   }
 
   .iconTextContainer {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    margin-top: 8px;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2px;
   }
 
   .col1b {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     padding: 2px;
   }
 
   .col1b text {
     display: flex;
-    width: 120px;
-    flex-wrap: wrap;
     padding: 2px;
   }
   
   .iconTextContainerCol1b {
     display: flex;
-    gap: 1px;
+    gap: 2px;
     padding: 2px;
     align-items: center;
   }
 
   .col2 {
-    margin-left: 48vw;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 1;
+    overflow: auto;
+    height: 100vh;
+    margin-top: 30vh;
+    padding-bottom: 35vh;
+    margin-left: 2vw;
+    flex-grow: 1;
+    overflow: auto;
   }
 
   .col2 text {
@@ -215,6 +223,7 @@ text {
     display: flex;
     padding-top: 4px;
     color: gray;
+    align-items: center;
   }
   
   .repoContainer {
